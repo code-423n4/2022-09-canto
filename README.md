@@ -8,7 +8,6 @@
 - Starts September 7, 2022 20:00 UTC
 - Ends September 8, 2022 20:00 UTC
 
-[ ⭐️ SPONSORS ADD INFO HERE ]
 # Oracle Audit
 
 
