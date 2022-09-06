@@ -19,6 +19,18 @@
 The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of (`$CANTO`, `$NOTE`, `$USDC` `$USDT`, `$ETH`, `$ATOM`). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens. 
 Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
 
+# **Integration Tests**
+Integration tests using CLM in conjunction with the oracle may be found [here](github.com/Canto-Network/clm), 
+## **To Run**
+`git clone https://github.com/Canto-Network/clm.git` 
+
+`nvm use 14.0.0`
+
+`yarn install --lock-file`
+
+`npx hardhat test tests/canto/[test_file_to_run]`
+
+
 # **BaseV1-Periphery**
 
 ## **getUnderlyingPrice (SLOC: 487 - 522): 35 LOC -**
@@ -88,6 +100,8 @@ The totalSupply of lpTokens at each of the most recent 8 observations is also re
 ```go
 sum_i((token_asset_reserves[i] * price[i] + token_unit_reserves[i])/totalSupply[i]) 
 ```
+Where `token_asset_reserves`, `price`, `token_unit_reserves`, and `totalSupply` are TWAs of reserves, prices, and totalSupply from the pair. This calculation was meant to 
+
 
 ### Concerns
 
