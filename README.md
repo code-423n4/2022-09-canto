@@ -64,7 +64,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 ## **Total LOC: 155**
 
 # **Oracle Overview**
-The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of ($CANTO, $NOTE, $USDC $USDT, $ETH, $ATOM). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens. 
+The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of (`$CANTO`, `$NOTE`, `$USDC` `$USDT`, `$ETH`, `$ATOM`). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens. 
 Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
 
 # **BaseV1-Periphery**
@@ -75,7 +75,7 @@ Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs
 
 This method is defined to adhere to the Compound `PriceOracle` interface. The Comptroller calls this method when calculating accountLiquidities for users who hold balances of Erc20 tokens. These tokens are priced in terms of `$NOTE` . Stable coins (USDC, USDT, NOTE) have prices that are statically set to 1e18.  
 
-For non-stable tokens, there are two cases
+For non-stable tokens, there are two cases,
 
 - The token is an lpToken
     
@@ -103,7 +103,7 @@ The final price is scaled by 1e18.
     
 - L502/506
     
-    ```go
+    ```solidity
     erc20(underlying).decimals();
     ```
     
@@ -125,7 +125,7 @@ This method is used to price lpTokens. There are two cases here
 
 along with the reserves, the last 8 price observations are determined, where the price is represented as follows 
 
-```go
+```solidity
 prices = sample(token_asset, token_asset_decimals, 8, 1)
 ```
 
@@ -141,7 +141,7 @@ sum_i((token_asset_reserves[i] * price[i] + token_unit_reserves[i])/totalSupply[
 
 - What is the tolerance of the lpToken Pricing to large moves in volatility / reserve sizes in both volatile / not-volatile pairs. I.e - try to induce large moves in reserves sizes to force price to be over/under-estimate of actual reserve ratio.
 - Inaccuracy resulting from rounding errors.
-- StableSwap invariant for stable pairs (x^3y + xy^3) that is used, may also lead to inaccuracy in `getAmountOut` calculations
+- StableSwap invariant for stable pairs `x^3y + xy^3` that is used, may also lead to inaccuracy in `getAmountOut` calculations
 
 ### External Calls
 
@@ -204,7 +204,7 @@ Returns the price of the asset in Note. This is called for the deriving the pric
 
 ### Explanation
 
-Adds the current values of the reserves and totalSupply times the timeDiff between the last observations to the supply, reserve accumulators. After `updateFrequency` difference in `blockTimestamps` between the last recorded block timestamp and the current block timestamp, the `reserveCumulative` and `totalSupplyCumulative` values are written to state. Each time that any of these values changes, the accumulators are adjusted as follows,
+Adds the current values of the reserves and totalSupply times the timeDiff between the last observations to the supply and reserve accumulators. After `updateFrequency` difference in `blockTimestamps` between the last recorded block timestamp and the current block timestamp, the `reserveCumulative` and `totalSupplyCumulative` values are written to state. Each time that any of these values changes, the accumulators are adjusted as follows,
 
  
 
@@ -214,7 +214,7 @@ reserve1Cumulative += timeDiff * reserve1
 totalSupplyCumulataive += timeDiff * totalSupply
 ```
 
-Where timeDiff is the difference in block timestamps between the current block timestamp, and the last time time that update was called. This enables TWAs to be calculated between observations as follows
+Where timeDiff is the difference in block timestamps between the current block timestamp, and the last time time that update was called. This enables TWAs to be calculated between observations as follows,
 
 ```go
 (observation[i].reserve0Cumulative - observation[i-1].resrve0Cumulative)/timeElapsed
@@ -230,7 +230,7 @@ This method returns the totalSum of the last n recorded reserves for either pair
 
 ### Explanation
 
-This method returns the TW value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return TW values for, it is calculated as follows
+This method returns the TW value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return TW values for, it is calculated as follows,
 
 ```go
 timeElapsed = observation[window * (i)].timeStamp - observation[window*(i - 1)].timeStamp
@@ -248,7 +248,7 @@ This serves the same purpose as `reserves` however, the values summed are return
 
 ### Explanation
 
-This method returns the TW value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return TW values for, it is calculated as follows
+This method returns the TW value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return TW values for, it is calculated as follows,
 
 ```go
 timeElapsed = observation[window * (i)].timeStamp - observation[window*(i - 1)].timeStamp
