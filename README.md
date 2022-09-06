@@ -59,7 +59,13 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 [ ⭐️ SPONSORS ADD INFO HERE ]
 # Oracle Audit
 
+
+
 ## **Total LOC: 155**
+
+# **Oracle Overview**
+The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of ($CANTO, $NOTE, $USDC $USDT, $ETH, $ATOM). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens. 
+Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
 
 # **BaseV1-Periphery**
 
@@ -84,7 +90,8 @@ The final price is scaled by 1e18.
 
 ### Concerns
 
-- Overriding pools that should be referenced, by pools that a user themselves deploys and is able to easily manipulate
+- Is is possible for users to create non-stable pairs for stable pairs, and have the router reference them in price determination, and vice-versa for non-stable assets and stable pairs. i.e. we're trying to get USDC/NOTE stable price, but a 3rd party has deployed USDC/NOTE non-stable, and ensure that oracle is looking at correct one
+
 
 ### External Calls
 
@@ -132,8 +139,8 @@ sum_i((token_asset_reserves[i] * price[i] + token_unit_reserves[i])/totalSupply[
 
 ### Concerns
 
-- What is the tolerance of the lpToken Pricing to large moves in volatility / reserve sizes in both volatile / not-volatile pairs
-- Inaccuracy resulting from rounding errors
+- What is the tolerance of the lpToken Pricing to large moves in volatility / reserve sizes in both volatile / not-volatile pairs. I.e - try to induce large moves in reserves sizes to force price to be over/under-estimate of actual reserve ratio.
+- Inaccuracy resulting from rounding errors.
 - StableSwap invariant for stable pairs (x^3y + xy^3) that is used, may also lead to inaccuracy in `getAmountOut` calculations
 
 ### External Calls
