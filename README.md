@@ -19,7 +19,7 @@ The oracle we define below is used in the Canto-Lending Market to determine the 
 Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
 
 # **Integration Tests**
-Integration tests using CLM in conjunction with the oracle may be found [here](github.com/Canto-Network/clm), 
+Integration tests using CLM in conjunction with the oracle may be found [here](https://github.com/Canto-Network/clm/tree/main/tests/canto), 
 ## **To Run**
 `git clone https://github.com/Canto-Network/clm.git` 
 
@@ -92,14 +92,14 @@ along with the reserves, the last 8 price observations are determined, where the
 prices = sample(token_asset, token_asset_decimals, 8, 1)
 ```
 
-Essentially, this returns the amount of the unitToken (Canto or Note) that swapping `10 **token.decimals()` of the assetToken would return with the reserves stored for each of the most recent 8 observations.
+This returns the amount of the unitToken (Canto or Note) that swapping `10 **token.decimals()` of the assetToken would return with the reserves stored for each of the most recent 8 observations.
 
 The totalSupply of lpTokens at each of the most recent 8 observations is also recorded. The lpTokenPrice is determined as follows
 
 ```go
 sum_i((token_asset_reserves[i] * price[i] + token_unit_reserves[i])/totalSupply[i]) 
 ```
-Where `token_asset_reserves`, `price`, `token_unit_reserves`, and `totalSupply` are TWAs of reserves, prices, and totalSupply from the pair. This calculation was meant to 
+Where `token_asset_reserves`, `price`, `token_unit_reserves`, and `totalSupply` are time weighted Averages of reserves, prices, and totalSupply from the pair. These values are determined from the most recent observations, the sample size is determined by user. This calculation was meant to 
 
 
 ### Concerns
@@ -179,7 +179,7 @@ reserve1Cumulative += timeDiff * reserve1
 totalSupplyCumulataive += timeDiff * totalSupply
 ```
 
-Where timeDiff is the difference in block timestamps between the current block timestamp, and the last time time that update was called. This enables TWAs to be calculated between observations as follows,
+Where timeDiff is the difference in block timestamps between the current block timestamp, and the last time time that update was called. This enables time weighted average s to be calculated between observations as follows,
 
 ```go
 (observation[i].reserve0Cumulative - observation[i-1].resrve0Cumulative)/timeElapsed
@@ -189,7 +189,7 @@ Where timeDiff is the difference in block timestamps between the current block t
 
 ### Explanation
 
-This method returns the totalSum of the last n recorded reserves for either pair, this value can then be averaged by the number of requested values, to obtain a TWA over the number of periods requested.
+This method returns the totalSum of the last n recorded reserves for either pair, this value can then be averaged by the number of requested values, to obtain a time weighted average  over the number of periods requested.
 
 ## **sampleReserves (SLOC: 237 - 259): 22 LOC -**
 
@@ -213,7 +213,7 @@ This serves the same purpose as `reserves` however, the values summed are return
 
 ### Explanation
 
-This method returns the TW value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return TW values for, it is calculated as follows,
+This method returns the time weighted value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return time weighted values for, it is calculated as follows,
 
 ```go
 timeElapsed = observation[window * (i)].timeStamp - observation[window*(i - 1)].timeStamp
