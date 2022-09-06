@@ -1,7 +1,7 @@
 
 # Canto Dex Oracle contest details
-- 19,000 CANTO main award pot
-- 1,000 CANTO gas optimization award pot
+- $20,000 worth of CANTO main award pot
+- $0 gas optimization award pot
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2022-09-canto-contest/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
@@ -9,8 +9,6 @@
 - Ends September 8, 2022 20:00 UTC
 
 # Oracle Audit
-
-
 
 ## **Total LOC: 155**
 
@@ -214,6 +212,15 @@ This serves the same purpose as `reserves` however, the values summed are return
 ### Explanation
 
 This method returns the time weighted value of the reserves of either asset between observations. The user is able to determine the windowSize, and the number of windows to return time weighted values for, it is calculated as follows,
+=======
+# Canto Dex Oracle contest details
+- $20,000 worth of CANTO main award pot
+- $0 gas optimization award pot
+- Join [C4 Discord](https://discord.gg/code4rena) to register
+- Submit findings [using the C4 form](https://code4rena.com/contests/2022-09-canto-contest/submit)
+- [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
+- Starts September 7, 2022 20:00 UTC
+- Ends September 8, 2022 20:00 UTC
 
 ```go
 timeElapsed = observation[window * (i)].timeStamp - observation[window*(i - 1)].timeStamp
