@@ -48,8 +48,7 @@ Under "SPONSORS ADD INFO HERE" heading below, include the following:
 ---
 
 # Canto Dex Oracle contest details
-- $19,000 CANTO main award pot
-- $1,000 CANTO gas optimization award pot
+- $20,000 worth of CANTO
 - Join [C4 Discord](https://discord.gg/code4rena) to register
 - Submit findings [using the C4 form](https://code4rena.com/contests/2022-09-canto-contest/submit)
 - [Read our guidelines for more details](https://docs.code4rena.com/roles/wardens)
