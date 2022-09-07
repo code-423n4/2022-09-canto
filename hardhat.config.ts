@@ -3,7 +3,9 @@ import "@nomiclabs/hardhat-ethers";
 import {HardhatUserConfig} from 'hardhat/types';
 import "hardhat-deploy";
 import "ethereum-waffle";
-import "hardhat-preprocessor"; 
+import "hardhat-preprocessor";
+import "solidity-coverage";
+import "hardhat-gas-reporter";
 
 const config: HardhatUserConfig = {
   solidity: {

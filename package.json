@@ -3,19 +3,6 @@
   "version": "0.2.1",
   "description": "The Compound Money Market",
   "main": "index.js",
-  "scripts": {
-    "compile": "./script/compile",
-    "console": "if node -v | grep -E \"v(12|13)\" > /dev/null; then flags=\"-n --experimental-repl-await\"; fi; npx $flags saddle console",
-    "coverage": "./script/coverage",
-    "deploy": "./scenario/script/repl -s ./script/scen/deploy.scen",
-    "lint": "./script/lint",
-    "repl": "./scenario/script/repl",
-    "profile": "yarn test tests/gasProfiler.js",
-    "report": "npx run ./script/saddle/gasReport.js",
-    "test": "./script/test",
-    "test:prepare": "NO_RUN=true ./script/test",
-    "checksize": "npx run ./script/saddle/comptrollerSize.js"
-  },
   "repository": "git@github.com:compound-finance/compound-protocol.git",
   "author": "Compound Finance",
   "license": "UNLICENSED",
@@ -46,6 +33,8 @@
     "mocha": "^9.2.2",
     "ts-node": "^10.7.0",
     "typechain": "^8.0.0",
+    "solidity-coverage": "^0.7.21",
+    "hardhat-gas-reporter": "^1.0.8",
     "typescript": "^4.7.3"
   },
   "resolutions": {
