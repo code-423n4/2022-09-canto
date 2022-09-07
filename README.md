@@ -40,7 +40,7 @@ Integration tests using CLM in conjunction with the oracle may be found [here](h
 
 **All in one command:**
 
-`rm -Rf 2022-09-canto || true && git clone https://github.com/code-423n4/2022-09-canto.git && cd 2022-09-canto && nvm install 16.0.0 && yarn install && REPORT_GAS=true npx hardhat test`
+`rm -Rf 2022-09-canto || true && git clone https://github.com/code-423n4/2022-09-canto.git && cd 2022-09-canto && nvm install 16.0.0 && yarn install --lock-file && REPORT_GAS=true npx hardhat test`
 
 **or:**
 
