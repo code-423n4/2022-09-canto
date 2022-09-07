@@ -2,8 +2,8 @@
 
 pragma solidity 0.8.11;
 
-import "../CToken.sol";
-import "../PriceOracle.sol";
+import "../deps/CToken.sol";
+import "../deps/PriceOracle.sol";
 import "./BaseV1-libs.sol";
 
 interface IBaseV1Factory {

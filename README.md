@@ -20,9 +20,7 @@ Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs
 
 # **Integration Tests**
 Integration tests using CLM in conjunction with the oracle may be found [here](https://github.com/Canto-Network/clm/tree/main/tests/canto), 
-## **To Run**
-`git clone https://github.com/Canto-Network/clm.git` 
-
+## **To Run Tests**
 `nvm use 14.0.0`
 
 `yarn install --lock-file`
