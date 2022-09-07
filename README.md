@@ -10,7 +10,15 @@
 # Oracle Audit
 
 ## **Total LOC: 155**
+## **Files in scope**
+Not all code in the contracts below are in scope. The specific functions in scope are detailed below.
 
+|File|[SLOC](#nowhere "(nSLOC, SLOC, Lines)")|[Coverage](#nowhere "(Lines hit / Total)")|
+|:-|:-:|:-:|
+|_Contracts (2)_|
+|[src/Swap/BaseV1-core.sol](https://github.com/code-423n4/2022-09-canto/blob/main/src/Swap/BaseV1-core.sol) [🧮](#nowhere "Uses Hash-Functions") [🔖](#nowhere "Handles Signatures: ecrecover") [Σ](#nowhere "Unchecked Blocks")|[476](#nowhere "(nSLOC:476, SLOC:476, Lines:612)")|[78.15%](#nowhere "(Hit:211 / Total:270)")|
+|[src/Swap/BaseV1-periphery.sol](https://github.com/code-423n4/2022-09-canto/blob/main/src/Swap/BaseV1-periphery.sol) [💰](#nowhere "Payable Functions") [📤](#nowhere "Initiates ETH Value Transfer") [🧮](#nowhere "Uses Hash-Functions")|[525](#nowhere "(nSLOC:424, SLOC:525, Lines:611)")|[60.71%](#nowhere "(Hit:136 / Total:224)")|
+|Total (over 2 files):| [1001](#nowhere "(nSLOC:900, SLOC:1001, Lines:1223)")| [70.24%](#nowhere "Hit:347 / Total:494")|
 # **Oracle Overview**
 The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of (`$CANTO`, `$NOTE`, `$USDC` `$USDT`, `$ETH`, `$ATOM`). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens. 
 Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
@@ -18,12 +26,13 @@ Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs
 # **Integration Tests**
 Integration tests using CLM in conjunction with the oracle may be found [here](https://github.com/Canto-Network/clm/tree/main/tests/canto), 
 ## **To Run Tests**
-`nvm use 16.0.0`
+`nvm install 16.0.0`
 
 `yarn install --lock-file`
 
 `npx hardhat test tests/canto/[test_file_to_run]`
 
+Oracle specific tests are found here: `./test/canto/Oracle`
 
 # **BaseV1-Periphery**
 
