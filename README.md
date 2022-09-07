@@ -30,7 +30,7 @@ Link to [docs](https://docs.canto.io/overview/about-canto)
 # **Oracle Overview**
 
 The oracle we define below is used in the Canto-Lending Market to determine the value of asset collateral of (`$CANTO`, `$NOTE`, `$USDC` `$USDT`, `$ETH`, `$ATOM`). It is also used to determine the value of lpTokens used as collateral. As such, the oracle is general purpose in that it is able to determine prices, from specified pairs deployed from the router, of non-LP and LP tokens.
-Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs follow the regular constant-product CF invariant, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
+Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While volatile pairs follow the regular constant-product CF, `xy = k`, where `x` and `y` are the reserves of the assets in the pool.
 
 # **Integration Tests**
 
