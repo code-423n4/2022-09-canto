@@ -17,10 +17,8 @@ Stable pairs follow the `x^3y + y^3x = k` CF curve invariant. While stable pairs
 
 # **Integration Tests**
 Integration tests using CLM in conjunction with the oracle may be found [here](https://github.com/Canto-Network/clm/tree/main/tests/canto), 
-## **To Run**
-`git clone https://github.com/Canto-Network/clm.git` 
-
-`nvm use 14.0.0`
+## **To Run Tests**
+`nvm use 16.0.0`
 
 `yarn install --lock-file`
 
@@ -33,7 +31,7 @@ Integration tests using CLM in conjunction with the oracle may be found [here](h
 
 ### Explanation
 
-This method is defined to adhere to the Compound `PriceOracle` interface. The Comptroller calls this method when calculating accountLiquidities for users who hold balances of Erc20 tokens. These tokens are priced in terms of `$NOTE` . Stable coins (USDC, USDT, NOTE) have prices that are statically set to 1e18.  
+This method is defined to adhere to the Compound `PriceOracle` interface. The Comptroller calls this method when calculating `accountLiquidities` for users who hold balances of ERC20 tokens. These tokens are priced in terms of `$NOTE` . Stable coins (`USDC`, `USDT`, `NOTE`) have prices that are statically set to 1e18.  
 
 For non-stable tokens, there are two cases,
 
@@ -43,14 +41,14 @@ For non-stable tokens, there are two cases,
     
 - The token is not an lpToken
     
-    The Price of the token is determined through the price determined from the Canto/Token pool * price from Canto/Note pool. All non-stable tokens, are priced in reference to the Canto/Token Pool.
+    The Price of the token is determined through the reserve ratio determined from the Canto/Token pool * price from Canto/Note pool. All non-stable tokens, are priced in reference to the Canto/Token Pool.
     
 
 The final price is scaled by 1e18.
 
 ### Concerns
 
-- Is is possible for users to create non-stable pairs for stable pairs, and have the router reference them in price determination, and vice-versa for non-stable assets and stable pairs. i.e. we're trying to get USDC/NOTE stable price, but a 3rd party has deployed USDC/NOTE non-stable, and ensure that oracle is looking at correct one
+- Is it possible for users to create non-stable pairs for stable pairs, and have the router reference them in price determination, and vice-versa for non-stable assets and stable pairs. i.e. we're trying to get USDC/NOTE stable price, but a 3rd party has deployed USDC/NOTE non-stable, and ensure that oracle is looking at correct one
 
 
 ### External Calls
@@ -72,15 +70,15 @@ The final price is scaled by 1e18.
 
 ### Explanation
 
-This method is used to price lpTokens. There are two cases here
+This method is used to price lpTokens. There are two cases,
 
 - The pair that lpToken is minted from is stable
     
-    In this case, the Router will reference the Note/Token pool. The lpToken calculation  determines the reserves of Note in the pool (`unitReserves`) and the reserves of the other asset in the pool (`assetReserves`)
+    The Router will reference the Note/Token pool. The lpToken calculation  determines the reserves of Note in the pool (`unitReserves`) and the reserves of the other asset in the pool (`assetReserves`)
     
 - The pair that lpToken is minted from is not stable
     
-    In this case, the Router will reference the Canto/Token pool. The lpToken calculation determines the reserves of Canto in the pool (`unitReserves`) and the reserves of the other token in the pool (`assetReserves`)
+    The Router will reference the Canto/Token pool. The lpToken calculation determines the reserves of Canto in the pool (`unitReserves`) and the reserves of the other token in the pool (`assetReserves`)
     
 
 along with the reserves, the last 8 price observations are determined, where the price is represented as follows 
@@ -89,14 +87,14 @@ along with the reserves, the last 8 price observations are determined, where the
 prices = sample(token_asset, token_asset_decimals, 8, 1)
 ```
 
-This returns the amount of the unitToken (Canto or Note) that swapping `10 **token.decimals()` of the assetToken would return with the reserves stored for each of the most recent 8 observations.
+This returns the amount of the unitToken received (Canto or Note) from swapping `10 **token.decimals()` of the assetToken. 
 
 The totalSupply of lpTokens at each of the most recent 8 observations is also recorded. The lpTokenPrice is determined as follows
 
 ```go
 sum_i((token_asset_reserves[i] * price[i] + token_unit_reserves[i])/totalSupply[i]) 
 ```
-Where `token_asset_reserves`, `price`, `token_unit_reserves`, and `totalSupply` are time weighted Averages of reserves, prices, and totalSupply from the pair. These values are determined from the most recent observations, the sample size is determined by user. This calculation was meant to 
+Where `token_asset_reserves`, `price`, `token_unit_reserves`, and `totalSupply` are time weighted Averages of reserves, prices, and totalSupply from the pair. These values are determined from the most recent observations, the sample size is determined by user.  
 
 
 ### Concerns
